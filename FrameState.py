@@ -1,6 +1,13 @@
 import pygame
 import os
-from UpdateMatrix import mapping, clear_map, update_map_wall, update_map_player, update_map_enemy, print_map
+from UpdateMatrix import \
+    mapping, \
+    clear_map, \
+    update_map_wall, \
+    update_map_player, \
+    update_map_enemy, \
+    update_map_bullet, \
+    print_map
 
 """
     操作说明
@@ -32,6 +39,9 @@ TANK_PLAYER1 = 51
 TANK_PLAYER2 = 52
 TANK_PLAYER3 = 53
 
+# 子弹
+TANK_BULLET = 61
+
 
 def my_tank_position(tank):
     return mapping(tank.rect.top, tank.rect.left)
@@ -41,11 +51,12 @@ class OnPlaying:
     @staticmethod
     def game_running(game, players, enemies, bullets, bonuses):
         clear_map(game.level.map_matrix)
-        update_map_wall(game.level.map_matrix, game.level.mapr)
         update_map_player(game.level.map_matrix, players)
         update_map_enemy(game.level.map_matrix, enemies)
+        update_map_bullet(game.level.map_matrix, bullets)
+        update_map_wall(game.level.map_matrix, game.level.mapr)
 
-        # print_map(game.level.map_matrix)
+        print_map(game.level.map_matrix)
 
         OnPlaying.player_here1(players[0], game.level.map_matrix)
         if 2 == len(players):

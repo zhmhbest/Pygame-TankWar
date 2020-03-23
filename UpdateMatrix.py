@@ -24,20 +24,32 @@ def update_map_wall(map_matrix, mapr):
         map_matrix[pos[0]][pos[1]] = item[0]
 
 
+def update_map_tank(map_matrix, tank, t):
+    pos1 = mapping(tank.rect.top, tank.rect.left)
+    map_matrix[pos1[0]][pos1[1]] = 50 + t
+    map_matrix[pos1[0]+1][pos1[1]+1] = 50 + t
+    map_matrix[pos1[0]][pos1[1]+1] = 50 + t
+    map_matrix[pos1[0]+1][pos1[1]] = 50 + t
+
+
 def update_map_player(map_matrix, players):
-    player = players[0]
-    pos = mapping(player.rect.top, player.rect.left)
-    map_matrix[pos[0]][pos[1]] = 51
+    update_map_tank(map_matrix, players[0], 1)
     if 2 == len(players):
-        player = players[1]
-        pos = mapping(player.rect.top, player.rect.left)
-        map_matrix[pos[0]][pos[1]] = 52
+        update_map_tank(map_matrix, players[1], 2)
 
 
 def update_map_enemy(map_matrix, enemies):
     for enemy in enemies:
-        pos = mapping(enemy.rect.top, enemy.rect.left)
-        map_matrix[pos[0]][pos[1]] = 53
+        update_map_tank(map_matrix, enemy, 3)
+
+
+def update_map_bullet(map_matrix, bullets):
+    for bullet in bullets:
+        pos = mapping(bullet.rect.top, bullet.rect.left)
+        try:
+            map_matrix[pos[0]][pos[1]] = 61
+        except IndexError:
+            pass
 
 
 def print_map(map_matrix):
@@ -59,6 +71,8 @@ def print_map(map_matrix):
                 print("2", end='')
             elif col == 53:
                 print("T", end='')
+            elif col == 61:
+                print("^", end='')
             else:
                 print('.', end='')
         print()
