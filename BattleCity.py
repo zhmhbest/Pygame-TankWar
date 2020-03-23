@@ -421,6 +421,28 @@ class Level(object):
         f = open(filename, "r")
         data = f.read().split("\n")
         self.mapr = []
+
+        # 矩阵坐标
+        self.map_matrix = []
+        for row in data:
+            buffer = []
+            for ch in row:
+                if ch == "#":
+                    buffer.append(self.TILE_BRICK)
+                elif ch == "@":
+                    buffer.append(self.TILE_STEEL)
+                elif ch == "~":
+                    buffer.append(self.TILE_WATER)
+                elif ch == "%":
+                    buffer.append(self.TILE_GRASS)
+                elif ch == "-":
+                    buffer.append(self.TILE_FROZE)
+                else:
+                    buffer.append(-1)
+            self.map_matrix.append(buffer)
+        # for row in self.map_matrix:
+        #     print(row)
+
         x, y = 0, 0
         for row in data:
             for ch in row:
@@ -520,6 +542,7 @@ class Tank(object):
         self.shielded = False
 
         # 移动速度，单位像素
+        # self.speed = 2
         self.speed = 2
 
         # 坦克最多保持的active炮弹数

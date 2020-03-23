@@ -1,20 +1,9 @@
 import pygame
 import os
+from UpdateMatrix import mapping, clear_map, update_map_wall, update_map_player, update_map_enemy, print_map
 
 """
     操作说明
-    敌军
-        枚举所有敌军位置
-            for enemy in enemies:
-                print("敌军位置", enemy.rect.topleft)
-    子弹
-        枚举所有子弹位置
-            for bullet in bullets:
-                print("子弹位置", bullet.rect.topleft)
-    道具
-        枚举所有道具
-            for bonuse in bonuses:
-                print("道具位置, 道具类型", bonuse.rect.topleft, bonuse.bonus)
     玩家
         移动
             tank.move(DIR_UP)
@@ -25,12 +14,11 @@ import os
             tank.fire()
         状态: 得分 血量
             print(tank.score)
-             print(tank.lives)
+            print(tank.lives)
         位置
+            my_tank_position(tank)
+        朝向
             tank.direction
-            tank.rect.topleft
-        地图信息
-            game.level.mapr
 """
 
 # 道具类型
@@ -39,32 +27,40 @@ import os
 # 方向
 (DIR_UP, DIR_RIGHT, DIR_DOWN, DIR_LEFT) = range(4)
 
-# 地形常量
-(TILE_EMPTY, TILE_BRICK, TILE_STEEL, TILE_WATER, TILE_GRASS, TILE_FROZE) = range(6)
+# 玩家
+TANK_PLAYER1 = 51
+TANK_PLAYER2 = 52
+TANK_PLAYER3 = 53
 
-# 地形像素尺寸
-TILE_SIZE = 16
+
+def my_tank_position(tank):
+    return mapping(tank.rect.top, tank.rect.left)
 
 
 class OnPlaying:
     @staticmethod
     def game_running(game, players, enemies, bullets, bonuses):
-        OnPlaying.player_here1(players[0], enemies, bullets, bonuses)
-        if 2 == len(players):
-            OnPlaying.player_here1(players[1], enemies, bullets, bonuses)
-        print(game.level.mapr)
+        clear_map(game.level.map_matrix)
+        update_map_wall(game.level.map_matrix, game.level.mapr)
+        update_map_player(game.level.map_matrix, players)
+        update_map_enemy(game.level.map_matrix, enemies)
 
+        # print_map(game.level.map_matrix)
+
+        OnPlaying.player_here1(players[0], game.level.map_matrix)
+        if 2 == len(players):
+            OnPlaying.player_here1(players[1], game.level.map_matrix)
 
     @staticmethod
-    def player_here1(tank, enemies, bullets, bonuses):
+    def player_here1(tank, map_matrix):
         """
         玩家1 在此游戏
         """
-        print("玩家1", tank.rect.topleft)
+        print("玩家1", my_tank_position(tank))
 
     @staticmethod
-    def player_here2(tank, enemies, bullets, bonuses):
+    def player_here2(tank, map_matrix):
         """
         玩家2 在此游戏
         """
-        print("玩家2", tank.rect.topleft)
+        print("玩家2", my_tank_position(tank))
