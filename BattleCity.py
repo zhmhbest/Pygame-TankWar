@@ -3,52 +3,14 @@
 python+pygame实现经典的《坦克大战》游戏
 """
 import os
-import uuid
 import random
 import pygame
 
+# 计时器
+from Interval import gtimer
 
-class Timer(object):
-    """ 计时器，定时执行回调函数"""
-
-    def __init__(self):
-        self.timers = []
-
-    def add(self, interval, f, repeat=-1):
-        timer = {
-            "interval": interval,  # 调用间隔，单位ms
-            "callback": f,  # 回调函数
-            "repeat": repeat,  # 重复调用次数
-            "times": 0,  # 当前调用次数
-            "time": 0,  # 计时
-            "uuid": uuid.uuid4()  # 唯一id
-        }
-        self.timers.append(timer)
-        return timer["uuid"]
-
-    def destroy(self, uuid_nr):
-        for timer in self.timers:
-            if timer["uuid"] == uuid_nr:
-                self.timers.remove(timer)
-                return
-
-    def update(self, time_passed):
-        for timer in self.timers:
-            timer["time"] += time_passed
-            # 够间隔时间就调用回调函数并重新计时
-            if timer["time"] >= timer["interval"]:
-                timer["time"] -= timer["interval"]
-                timer["times"] += 1
-                # 调用次数满就移除该回调函数的计时器，否则调用该回调函数
-                if timer["repeat"] > -1 and timer["times"] == timer["repeat"]:
-                    self.timers.remove(timer)
-                try:
-                    timer["callback"]()
-                except:
-                    try:
-                        self.timers.remove(timer)
-                    except:
-                        pass
+# 每帧状态
+from FrameState import OnPlaying
 
 
 class Castle(object):
@@ -1413,7 +1375,7 @@ class Game(object):
         self.writeInBricks("over", [125, 220])
         pygame.display.flip()
 
-        while 1:
+        while True:
             time_passed = self.clock.tick(50)
             for event in pygame.event.get():
                 # 按关闭按钮退出游戏
@@ -1988,17 +1950,19 @@ class Game(object):
                                 elif index == 4:
                                     player.pressed[3] = False
 
+            OnPlaying.game_running(self, players, enemies, bullets, bonuses)
+
             # 更新玩家坦克下次出现坐标
             for player in players:
                 if player.state == player.STATE_ALIVE and not self.game_over and self.active:
                     if player.pressed[0] == True:
-                        player.move(self.DIR_UP);
+                        player.move(self.DIR_UP)
                     elif player.pressed[1] == True:
-                        player.move(self.DIR_RIGHT);
+                        player.move(self.DIR_RIGHT)
                     elif player.pressed[2] == True:
-                        player.move(self.DIR_DOWN);
+                        player.move(self.DIR_DOWN)
                     elif player.pressed[3] == True:
-                        player.move(self.DIR_LEFT);
+                        player.move(self.DIR_LEFT)
                 player.update(time_passed)
 
             for enemy in enemies:
@@ -2050,8 +2014,7 @@ class Game(object):
 
 
 if __name__ == "__main__":
-    # 计时器
-    gtimer = Timer()
+
     # 图像资源
     sprites = None
     # 游戏窗口
