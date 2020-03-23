@@ -444,7 +444,7 @@ class Level(object):
         global screen
 
         if tiles == None:
-            tiles = [TILE_BRICK, TILE_STEEL, TILE_WATER, TILE_GRASS, TILE_FROZE]
+            tiles = [self.TILE_BRICK, self.TILE_STEEL, self.TILE_WATER, self.TILE_GRASS, self.TILE_FROZE]
 
         for tile in self.mapr:
             if tile[0] in tiles:
