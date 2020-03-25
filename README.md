@@ -5,7 +5,7 @@
 ## 编写须知
 
 - 玩家1在`Player1.py: main`下编写代码
-- 玩家2在`Player1.py: main`下编写代码
+- 玩家2在`Player2.py: main`下编写代码
 
 ### 地图信息
 
