@@ -26,6 +26,6 @@ class OnPlaying:
             player1_main(player1, tank_position(player1))
 
         if 2 == len(players):
-            player2 = players[0]
+            player2 = players[1]
             if player2.state == STATE_ALIVE:
                 player2_main(player2, tank_position(player2))
