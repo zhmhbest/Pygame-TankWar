@@ -6,6 +6,18 @@
 TILE_SIZE = 16
 
 
+def tank_position(tank):
+    return mapping(tank.rect.top, tank.rect.left)
+
+
+def update_map(map_matrix, players, enemies, bullets, mapr):
+    clear_map(map_matrix)
+    update_map_player(map_matrix, players)
+    update_map_enemy(map_matrix, enemies)
+    update_map_bullet(map_matrix, bullets)
+    update_map_wall(map_matrix, mapr)
+
+
 def mapping(x, y):
     return x // TILE_SIZE, y // TILE_SIZE
 
