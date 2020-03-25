@@ -4,13 +4,13 @@ python+pygame实现经典的《坦克大战》游戏
 """
 import os
 import random
-import pygame
 
-# 计时器
-from Interval import gtimer
+import pygame
 
 # 每帧状态
 from FrameState import OnPlaying
+# 计时器
+from Interval import gtimer
 
 
 class Castle(object):
@@ -650,9 +650,9 @@ class Tank(object):
         if self.state != self.STATE_DEAD:
             self.state = self.STATE_EXPLODING
             self.explosion = Explosion(self.rect.topleft)
-
-            if self.bonus:
-                self.spawnBonus()  # 坦克爆炸后出现宝物
+            #
+            # if self.bonus:
+            #     self.spawnBonus()  # 坦克爆炸后出现宝物
 
     def fire(self, forced=False):
         """
@@ -1143,6 +1143,18 @@ class Player(Tank):
             self.rotate(self.DIR_UP, False)
         else:
             self.rotate(direction, False)
+
+    def go_up(self):
+        self.move(self.DIR_UP)
+
+    def go_down(self):
+        self.move(self.DIR_DOWN)
+
+    def go_left(self):
+        self.move(self.DIR_LEFT)
+
+    def go_right(self):
+        self.move(self.DIR_RIGHT)
 
     def move(self, direction):
         """ 玩家坦克移动 """
@@ -2037,7 +2049,6 @@ class Game(object):
 
 
 if __name__ == "__main__":
-
     # 图像资源
     sprites = None
     # 游戏窗口

@@ -13,10 +13,11 @@ from UpdateMatrix import \
     操作说明
     玩家
         移动
-            tank.move(DIR_UP)
-            tank.move(DIR_DOWN)
-            tank.move(DIR_LEFT)
-            tank.move(DIR_RIGHT)
+            tank.go_up()
+            tank.go_down()
+            tank.go_left()
+            tank.go_right()
+            
         开火
             tank.fire()
         状态: 得分 血量
@@ -60,7 +61,7 @@ class OnPlaying:
 
         OnPlaying.player_here1(players[0], game.level.map_matrix)
         if 2 == len(players):
-            OnPlaying.player_here1(players[1], game.level.map_matrix)
+            OnPlaying.player_here2(players[1], game.level.map_matrix)
 
     @staticmethod
     def player_here1(tank, map_matrix):
@@ -68,6 +69,7 @@ class OnPlaying:
         玩家1 在此游戏
         """
         print("玩家1", my_tank_position(tank))
+
 
     @staticmethod
     def player_here2(tank, map_matrix):
