@@ -8,7 +8,8 @@ import random
 import pygame
 
 # 每帧状态
-from FrameState import OnPlaying
+# from FrameState import OnPlaying
+from FrameState import *
 # 计时器
 from Interval import gtimer
 
@@ -1921,7 +1922,7 @@ class Game(object):
         self.active = True
 
         self.draw()
-
+        OnPlaying.game = self
         while self.running:
             time_passed = self.clock.tick(50)
 
@@ -1985,7 +1986,9 @@ class Game(object):
                                 elif index == 4:
                                     player.pressed[3] = False
 
-            OnPlaying.game_running(self, players, enemies, bullets, bonuses)
+            OnPlaying.enmies = enemies
+            OnPlaying.bullets = bullets
+            OnPlaying.game_running(players, enemies, bullets, bonuses)
 
             # 更新玩家坦克下次出现坐标
             for player in players:
