@@ -1,5 +1,5 @@
-from Enhance import PlayEnhance
-from CommonHeader import *
+from support.Enhance import PlayEnhance
+from support.CommonHeader import *
 """
     TILE_BRICK:    砖块
     TILE_STEEL:    铁
@@ -16,7 +16,7 @@ from CommonHeader import *
     DIR_DOWN
     DIR_LEFT
 """
-TANK_CURRENT = 51
+TANK_CURRENT = TANK_PLAYER1
 
 
 def main(tank, position):

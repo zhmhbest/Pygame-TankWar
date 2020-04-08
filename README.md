@@ -2,6 +2,17 @@
 
 - [参考源码](http://battle-city-tanks.googlecode.com/files/tanks_v1.0.zip)
 
+## 环境与启动
+
+需要安装pygame，运行BattleCity.py启动游戏。
+
+## 运行加速
+
+```python
+PlayEnhance.accelerate(num)
+# num: 0~100
+```
+
 ## 编写须知
 
 - 玩家1在`Player1.py: main`下编写代码

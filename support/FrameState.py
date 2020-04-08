@@ -1,15 +1,14 @@
 
-from UpdateMatrix import tank_position, update_map, print_map
-from Player1 import main as player1_main
-from Player2 import main as player2_main
-from CommonHeader import STATE_ALIVE
-
-
 class OnPlaying:
+    frame_num = 50
     game = None
 
     @staticmethod
     def game_running(players, enemies, bullets, bonuses):
+        from .CommonHeader import STATE_ALIVE
+        from .UpdateMatrix import tank_position, update_map, print_map
+        from Player1 import main as player1_main
+        from Player2 import main as player2_main
         map_matrix = OnPlaying.game.level.map_matrix
         update_map(
             map_matrix,

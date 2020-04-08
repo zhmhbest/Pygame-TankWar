@@ -1,5 +1,7 @@
-from CommonHeader import *
-from UpdateMatrix import tank_position, mapping
+from .CommonHeader import *
+from .UpdateMatrix import tank_position, mapping
+from .FrameState import OnPlaying
+from Interval import Timer
 # from BattleCity import Player
 
 
@@ -11,12 +13,20 @@ class PlayEnhance:
     # ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
     @staticmethod
+    def accelerate(num: float):
+        if num > 0:
+            if num > 100:
+                num = 100
+            Timer.Weight = num
+            OnPlaying.frame_num = int(50*num)
+
+    @staticmethod
     def get_map() -> list:
         return PlayEnhance.game.level.map_matrix
 
     @staticmethod
     def print_map():
-        from UpdateMatrix import print_map as pm
+        from .UpdateMatrix import print_map as pm
         pm(PlayEnhance.game.level.map_matrix)
 
     @staticmethod

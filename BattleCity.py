@@ -8,9 +8,8 @@ import random
 import pygame
 
 # 每帧状态
-# from FrameState import OnPlaying
-from FrameState import OnPlaying
-from Enhance import *  # PlayEnhance
+from support.FrameState import OnPlaying
+from support.Enhance import PlayEnhance
 # 计时器
 from Interval import gtimer
 
@@ -1926,7 +1925,7 @@ class Game(object):
         OnPlaying.game = self
         PlayEnhance.game = self
         while self.running:
-            time_passed = self.clock.tick(50)
+            time_passed = self.clock.tick(OnPlaying.frame_num)
 
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:

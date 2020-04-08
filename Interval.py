@@ -3,6 +3,7 @@ import uuid
 
 class Timer(object):
     """ 计时器，定时执行回调函数"""
+    Weight = 1
 
     def __init__(self):
         self.timers = []
@@ -27,7 +28,7 @@ class Timer(object):
 
     def update(self, time_passed):
         for timer in self.timers:
-            timer["time"] += time_passed
+            timer["time"] += time_passed * Timer.Weight
             # 够间隔时间就调用回调函数并重新计时
             if timer["time"] >= timer["interval"]:
                 timer["time"] -= timer["interval"]
@@ -42,6 +43,7 @@ class Timer(object):
                         self.timers.remove(timer)
                     except:
                         pass
+
 
 # 全局计时器
 gtimer = Timer()
